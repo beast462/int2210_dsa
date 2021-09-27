@@ -55,7 +55,7 @@ public class Solution {
         if (head == null) return;
         
         do {
-            System.out.println(data);
+            System.out.println(head.data);
             head = head.next;
         } while (head.next != null);
     }
