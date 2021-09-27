@@ -53,13 +53,16 @@ public class Solution {
      */
     static SinglyLinkedListNode insertNodeAtTail(SinglyLinkedListNode head, int data) {
         if (head == null)
-            return head = new SinglyLinkedListNode(data);
+            return new SinglyLinkedListNode(data);
             
-        while (head.next != null) {
-            head = head.next;
-        }
+        SinglyLinkedListNode iterator = head;
         
-        return head.next = new SinglyLinkedListNode(data);
+        while (iterator.next != null)
+            iterator = iterator.next;
+            
+        iterator.next = new SinglyLinkedListNode(data);
+            
+        return head;
     }
 
     private static final Scanner scanner = new Scanner(System.in);

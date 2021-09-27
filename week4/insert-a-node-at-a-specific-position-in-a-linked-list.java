@@ -27,7 +27,17 @@ public class Solution {
             this.tail = null;
         }
 
-      
+        public void insertNode(int nodeData) {
+            SinglyLinkedListNode node = new SinglyLinkedListNode(nodeData);
+
+            if (this.head == null) {
+                this.head = node;
+            } else {
+                this.tail.next = node;
+            }
+
+            this.tail = node;
+        }
     }
 
     public static void printSinglyLinkedList(SinglyLinkedListNode node, String sep, BufferedWriter bufferedWriter) throws IOException {
@@ -42,24 +52,26 @@ public class Solution {
         }
     }
 
-    // Complete the insertNodeAtHead function below.
-
-    /*
-     * For your reference:
-     *
-     * SinglyLinkedListNode {
-     *     int data;
-     *     SinglyLinkedListNode next;
-     * }
-     *
-     */
-    static SinglyLinkedListNode insertNodeAtHead(SinglyLinkedListNode llist, int data) {
-        if (llist == null)
-            return new SinglyLinkedListNode(data);
-            
-        SinglyLinkedListNode newHead = new SinglyLinkedListNode(data);
-        newHead.next = llist;
-        return newHead;
+    public static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode llist, int data, int position) {
+    // Write your code here
+        if (position == 0) {
+            SinglyLinkedListNode newNode = new SinglyLinkedListNode(data);
+            newNode.next = llist;
+            return newNode;
+        }
+    
+        int index = 1;
+        SinglyLinkedListNode head = llist;
+        
+        while (index < position && llist.next != null) {
+            llist = llist.next;
+            index++;
+        }
+        
+        SinglyLinkedListNode newNode = new SinglyLinkedListNode(data);
+        newNode.next = llist.next;
+        llist.next = newNode;
+        return head;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -75,15 +87,19 @@ public class Solution {
         for (int i = 0; i < llistCount; i++) {
             int llistItem = scanner.nextInt();
             scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-        	
-          SinglyLinkedListNode llist_head = insertNodeAtHead(llist.head, llistItem);
 
-          llist.head = llist_head;
+            llist.insertNode(llistItem);
         }
 
+        int data = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
+        int position = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        printSinglyLinkedList(llist.head, "\n", bufferedWriter);
+        SinglyLinkedListNode llist_head = insertNodeAtPosition(llist.head, data, position);
+
+        printSinglyLinkedList(llist_head, " ", bufferedWriter);
         bufferedWriter.newLine();
 
         bufferedWriter.close();
