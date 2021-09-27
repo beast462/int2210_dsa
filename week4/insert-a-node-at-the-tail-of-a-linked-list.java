@@ -55,9 +55,9 @@ public class Solution {
         if (head == null)
             return head = new SinglyLinkedListNode(data);
             
-        do {
+        while (head.next != null) {
             head = head.next;
-        } while (head.next != null);
+        }
         
         return head.next = new SinglyLinkedListNode(data);
     }
